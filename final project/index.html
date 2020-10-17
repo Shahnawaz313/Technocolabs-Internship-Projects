@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<script>
+    function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(600)
+                        .height(400);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+</script>
+
+<style>
+    @media(max-width: 768px){
+        #blah{
+            margin-top: 10px;
+        }
+    }
+</style>
+<center><i><h1>American Sign Language Recongnition</h1></i></center>
+{% if message %}
+    <br>
+    <div class="alert alert-danger">
+    <center><strong style="color: red;">{{ message }}</strong></center>
+    </div>
+{% endif %}
+
+{% if pred %}
+<div class="alert alert-success">
+    <center><strong style="color:rgb(20, 243, 12);">The predicted Alphabet is {{ pred }}</strong></center>
+</div>
+{% endif %}
+<br>
+
+<div class = 'container'>
+    
+        
+           <center><b> <p>American Sign Language is a visual language that incorporates gestures, facial expressions,
+                head movements, body language and even the space around the speaker. Hand signs are the
+                foundation of the language. Many signs are iconic, meaning the sign uses a visual image that
+                resembles the concept it represents. This project helps in recognizing the hand gestures of a
+                person and helps to communicate with the person in much effective manner.</p></b></center>
+            <center><p>Please select an image of a hand gesture</p></center>
+            
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6" style="margin-top:10px;">
+                        <input class="btn btn-block btn-info" onchange="readURL(this);" type="file" name="image" placeholder="Upload Image">
+                    </div>
+                    <div class="col-md-6" style="margin-top:10px;">
+                        <input type="submit" class="btn btn-primary btn-block" value="Predict">
+                    </div>
+                </div>
+            </form>
+    </div>
+{% endblock %}
